@@ -12,4 +12,9 @@ if [ -z "${API_TOKEN}" ]; then
 	exit 1
 fi
 
+if [ -z "${CYBERCHALLENGE_TOKEN}" ]; then
+	echo "Please set an CyberChallenge.IT team token via CYBERCHALLENGE_TOKEN environment variable"
+	exit 1
+fi
+
 FLASK_APP=$(dirname $(readlink -f $0))/standalone.py python3 -m flask run --host 0.0.0.0 --with-threads
