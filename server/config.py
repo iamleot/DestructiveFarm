@@ -1,3 +1,5 @@
+import os
+
 CONFIG = {
     # Don't forget to remove the old database (flags.sqlite) before each competition.
 
@@ -35,9 +37,9 @@ CONFIG = {
 
     # Password for the web interface. You can use it with any login.
     # This value will be excluded from the config before sending it to farm clients.
-    'SERVER_PASSWORD': '1234',
+    'SERVER_PASSWORD': os.getenv("SERVER_PASSWORD"),
 
     # Use authorization for API requests
-    'ENABLE_API_AUTH': False,
-    'API_TOKEN': '00000000000000000000'
+    'ENABLE_API_AUTH': True,
+    'API_TOKEN': os.getenv("API_TOKEN")
 }
