@@ -5,9 +5,11 @@ from server.models import FlagStatus, SubmitResult
 
 
 RESPONSES = {
-    FlagStatus.QUEUED: ['resubmit'],
-    FlagStatus.ACCEPTED: ['accepted'],
-    FlagStatus.REJECTED: ['denied'],
+    FlagStatus.QUEUED: ['the flag is not active yet, wait for next round', 'notify the organizers and retry later'],
+    FlagStatus.ACCEPTED: ['flag claimed'],
+    FlagStatus.REJECTED: ['invalid flag', 'flag from nop team',
+                          'flag is your own', 'flag too old', 'flag already claimed',
+                          "the check which dispatched this flag didn't terminate successfully"],
 }
 
 
@@ -21,7 +23,7 @@ def submit_flags(flags, config):
 
     unknown_responses = set()
     for item in r.json():
-        response = item['status'].strip()
+        response = item['msg'].strip()
         response = response.replace('[{}] '.format(item['flag']), '')
 
         response_lower = response.lower()
